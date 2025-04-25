@@ -3,6 +3,7 @@ import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import logoDark from './assets/logo-dark.png';
 import logoLight from './assets/logo-light.png';
+import { Analytics } from "@vercel/analytics/react"
 
 
 
@@ -535,6 +536,7 @@ function App() {
   };
 
   return (
+    
     <div className="app-container">
       <div className="gradient-bg">
         <div className="gradient-overlay"></div>
@@ -1236,7 +1238,9 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
+      <Analytics/>
     </div>
+    
   );
 }
 
