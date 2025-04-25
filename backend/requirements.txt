@@ -10,3 +10,5 @@ flask-limiter
 numpy
 squarify
 werkzeug
+python-dateutil
+gunicorn
