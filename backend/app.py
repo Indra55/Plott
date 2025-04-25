@@ -40,7 +40,14 @@ genai.configure(api_key=api_key)
 model = genai.GenerativeModel('gemini-2.0-flash')
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app, 
+     resources={r"/*": {
+         "origins": ["https://plott.hitanshu.tech", "http://plott.hitanshu.tech"],
+         "methods": ["GET", "POST", "OPTIONS"],
+         "allow_headers": ["Content-Type", "Authorization"],
+         "supports_credentials": True,
+         "max_age": 3600
+     }})
 
 # Initialize rate limiter
 limiter = Limiter(
@@ -102,6 +109,19 @@ def parse_gemini_json(text):
 @app.route('/health', methods=['GET'])
 def health_check():
     return jsonify({"status": "healthy"}), 200
+
+@app.route('/cors-test', methods=['GET', 'OPTIONS'])
+def cors_test():
+    return jsonify({
+        "status": "success",
+        "message": "CORS is properly configured",
+        "cors_config": {
+            "allowed_origins": ["https://plott.hitanshu.tech", "http://plott.hitanshu.tech"],
+            "allowed_methods": ["GET", "POST", "OPTIONS"],
+            "allowed_headers": ["Content-Type", "Authorization"],
+            "supports_credentials": True
+        }
+    }), 200
 
 @app.route('/api/generate-diagram', methods=['POST'])
 @handle_errors
