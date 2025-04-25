@@ -1,4 +1,4 @@
-# 📊 AI Diagram Generator
+# 📊 PLOTT
 
 <div align="center">
 
