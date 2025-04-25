@@ -6,3 +6,7 @@ matplotlib
 seaborn
 python-dotenv
 python-dateutil
+flask-limiter
+numpy
+squarify
+werkzeug
