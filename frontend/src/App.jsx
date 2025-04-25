@@ -243,13 +243,19 @@ function App() {
   useEffect(() => {
     const verifyBackendConnection = async () => {
       try {
-        await axios.get('https://plott.onrender.com/cors-test');
+        await axios.get('https://plott.onrender.com/cors-test', {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }
+        });
         console.log('Backend connection verified successfully');
       } catch (error) {
         console.error('Backend connection failed:', error);
         showToast(
           'API Connection Issue', 
-          'Unable to connect to backend service. Some features may not work properly.', 
+          'Unable to connect to backend service. Please try again later or contact support if the issue persists.', 
           'warning'
         );
       }
@@ -343,13 +349,19 @@ function App() {
       let response;
       try {
         response = await axios.post('https://plott.onrender.com/api/generate-diagram', { 
-          prompt: prompt.trim() 
+          prompt: trimmedPrompt 
+        }, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }
         });
         console.log("Flask backend response:", response.data);
       } catch (flaskError) {
         console.error('Flask backend error:', flaskError);
         response = await axios.post('/api/generate', { 
-          prompt: prompt.trim() 
+          prompt: trimmedPrompt 
         });
         console.log("Node.js backend response:", response.data);
       }
@@ -392,6 +404,12 @@ function App() {
       try {
         response = await axios.post('https://plott.onrender.com/api/enhance-prompt', { 
           prompt: originalPrompt.trim() 
+        }, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }
         });
         console.log("Enhance prompt response:", response.data);
         

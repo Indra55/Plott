@@ -41,13 +41,10 @@ model = genai.GenerativeModel('gemini-2.0-flash')
 
 app = Flask(__name__)
 CORS(app, 
-     resources={r"/*": {
-         "origins": ["https://plott.hitanshu.tech", "http://plott.hitanshu.tech"],
-         "methods": ["GET", "POST", "OPTIONS"],
-         "allow_headers": ["Content-Type", "Authorization"],
-         "supports_credentials": True,
-         "max_age": 3600
-     }})
+     origins=["https://plott.hitanshu.tech", "http://plott.hitanshu.tech"],
+     supports_credentials=True,
+     allow_headers=["Content-Type", "Authorization", "Accept"],
+     methods=["GET", "POST", "OPTIONS"])
 
 # Initialize rate limiter
 limiter = Limiter(
@@ -118,7 +115,7 @@ def cors_test():
         "cors_config": {
             "allowed_origins": ["https://plott.hitanshu.tech", "http://plott.hitanshu.tech"],
             "allowed_methods": ["GET", "POST", "OPTIONS"],
-            "allowed_headers": ["Content-Type", "Authorization"],
+            "allowed_headers": ["Content-Type", "Authorization", "Accept"],
             "supports_credentials": True
         }
     }), 200
