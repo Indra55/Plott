@@ -239,6 +239,25 @@ function App() {
     }
   }, []);
 
+  // Verify connection to backend on mount
+  useEffect(() => {
+    const verifyBackendConnection = async () => {
+      try {
+        await axios.get('https://plott.onrender.com/cors-test');
+        console.log('Backend connection verified successfully');
+      } catch (error) {
+        console.error('Backend connection failed:', error);
+        showToast(
+          'API Connection Issue', 
+          'Unable to connect to backend service. Some features may not work properly.', 
+          'warning'
+        );
+      }
+    };
+    
+    verifyBackendConnection();
+  }, []);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       const isTextField = ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName);
@@ -323,7 +342,7 @@ function App() {
       
       let response;
       try {
-        response = await axios.post('http://localhost:5000/api/generate-diagram', { 
+        response = await axios.post('https://plott.onrender.com/api/generate-diagram', { 
           prompt: prompt.trim() 
         });
         console.log("Flask backend response:", response.data);
@@ -371,7 +390,7 @@ function App() {
       console.log("Enhancing prompt:", originalPrompt);
       let response;
       try {
-        response = await axios.post('http://localhost:5000/api/enhance-prompt', { 
+        response = await axios.post('https://plott.onrender.com/api/enhance-prompt', { 
           prompt: originalPrompt.trim() 
         });
         console.log("Enhance prompt response:", response.data);
