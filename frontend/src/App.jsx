@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
+import logoDark from './assets/logo-dark.png';
+import logoLight from './assets/logo-light.png';
+
 
 
 import './App.css';
@@ -544,11 +547,12 @@ function App() {
         transition={{ duration: 0.5 }}
       >
         <div className="logo-container">
-          <img 
-            src={theme === 'light' ? "./src/assets/logo-dark.png" : "./src/assets/logo-light.png"} 
-            alt="Plott Logo" 
-            className="logo-image" 
-          />
+        <img 
+  src={theme === 'light' ? logoDark : logoLight} 
+  alt="Plott Logo" 
+  className="logo-image" 
+/>
+
         </div>
         
         <div className="header-actions">
